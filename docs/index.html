@@ -258,7 +258,7 @@ footer{position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.08);pa
   .section{padding:72px 0}
 }
 </style>
-</head>
+<link rel="stylesheet" href="assets/community.css?v=5"></head>
 <body style="--accent:#7CFF6B;--accent2:#22D3EE">
 <div class="grid-overlay"></div>
 <div class="glow one"></div>
@@ -275,6 +275,7 @@ footer{position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.08);pa
       <a href="#como">Cómo funciona</a>
       <a href="#arquitectura">Arquitectura</a>
       <a href="#docs">Documentación</a>
+      <a href="#comunidad">Comunidad</a>
       <a class="btn btn-ghost" style="padding:9px 15px" href="https://github.com/wanderc137/valvulas-zigbee" target="_blank" rel="noopener">GitHub</a>
     </nav>
   </div>
@@ -391,8 +392,8 @@ footer{position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.08);pa
   <div class="wrap">
     <div class="cta-card reveal">
       <div class="kicker" style="justify-content:center">Portfolio · 21 proyectos</div>
-      <h2>¿Construimos algo así?</h2>
-      <p>¿Querés automatizar riego o válvulas sin entregar el control a una nube? Se puede hacer local.</p>
+      <h2>¿Te animás?</h2>
+      <p>Usá esto como base y referencia para controlar riego o válvulas Zigbee de forma local, sin nube. Este proyecto es la prueba de que se puede hacer con componentes reales.</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="https://wanderc137.github.io/" target="_blank" rel="noopener">Ver todos los proyectos <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         <a class="btn btn-ghost" href="https://github.com/wanderc137/valvulas-zigbee" target="_blank" rel="noopener">Explorar el código</a>
@@ -444,5 +445,8 @@ footer{position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.08);pa
   document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
 })();
 </script>
+
+<script>window.PORTFOLIO_COMMUNITY = {"account": "wanderc137", "repo": "valvulas-zigbee", "coinNamespace": "wanderc137-valvulas-zigbee-coins-v1", "faqs": [{"q": "¿Qué controla?", "a": "Dos válvulas SONOFF SWV-NH y un interruptor ZBMINIL2 vía Zigbee2MQTT."}, {"q": "¿Necesita nube?", "a": "No. Zigbee2MQTT y Mosquitto corren localmente, con Docker."}, {"q": "¿Cómo se opera?", "a": "Con la CLI <code>valvulas.py</code> o el menú; los comandos MQTT están documentados."}, {"q": "¿Dónde está la configuración real?", "a": "En <code>configuration.yaml</code>, excluido; el repo publica <code>configuration.example.yaml</code>."}, {"q": "¿Cuáles son los límites?", "a": "Depende del coordinador Zigbee, la cobertura y la compatibilidad de los dispositivos."}]};</script>
+<script src="assets/community.js?v=5" defer></script>
 </body>
 </html>
