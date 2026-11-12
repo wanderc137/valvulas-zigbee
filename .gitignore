@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Zigbee2MQTT data (state, db, logs, backups) — no debe publicarse
+config/*.db
+config/*.db-*
+config/*.log
+config/*.txt
+config/log/
+config/state/
+config/state.json
+config/database.db
+config/assistant/
+config/*.pem
+config/configuration_backup_*.yaml
+config/coordinator_backup.json
+
+# IDE / SO
+.vscode/
+.idea/
+.DS_Store
+
+# Plan y auditoría internos del pipeline (no se publican)
+PLAN.md
+AUDIT_REPORT.md
+
+# Configuración real de Zigbee2MQTT (network_key, PAN ID, IEEE)
+config/configuration.yaml
+
+# ── Higiene de publicación (portfolio) ──────────────────────────────
+PLAN.md
+AUDIT_REPORT.md
+*.log
+.env
+.env.*
+!.env.example
+!.env.sample
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.DS_Store

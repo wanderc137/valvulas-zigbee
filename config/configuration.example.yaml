@@ -1,0 +1,75 @@
+# =============================================================================
+# configuration.example.yaml — Plantilla de configuración de Zigbee2MQTT
+# =============================================================================
+# Copiar a `config/configuration.yaml` y ajustar los valores marcados con
+# PLACEHOLDER. NO versionar el archivo real: contiene la network_key de la red
+# Zigbee y los IEEE de tus dispositivos (ver .gitignore y README → Seguridad).
+#
+#   cp config/configuration.example.yaml config/configuration.yaml
+#
+# Este archivo es SOLO una plantilla documentada. No se usa directamente:
+# el contenedor monta ./config en /app/data y lee configuration.yaml.
+# -----------------------------------------------------------------------------
+
+# Integración con Home Assistant: desactivada a propósito (proyecto 100% local
+# sin dependencias de nube ni de un servidor HA).
+homeassistant:
+  enabled: false
+
+# Broker MQTT local. `localhost` funciona porque el contenedor corre con
+# network_mode: host.
+mqtt:
+  base_topic: zigbee2mqtt
+  server: mqtt://localhost:1883
+  # Si activas credenciales en Mosquitto, descomenta:
+  # user: PLACEHOLDER_MQTT_USER
+  # password: PLACEHOLDER_MQTT_PASSWORD
+
+# Dongle Sonoff Zigbee 3.0 USB Dongle Plus V2 (EFR32MG21, EZSP/ember).
+# En producción conviene apuntar al symlink estable de /dev/serial/by-id/…
+serial:
+  port: /dev/ttyUSB0
+  adapter: ember
+
+advanced:
+  # PLACEHOLDER: Zigbee2MQTT puede generar una clave nueva con `GENERATE`
+  # (solo la primera vez). Si migras un coordinador ya emparejado, conserva la
+  # clave original o perderás TODOS los dispositivos y habrá que re-emparejar.
+  network_key: GENERATE
+  # PLACEHOLDER: idem. GENERATE crea un PAN ID aleatorio la primera vez.
+  pan_id: GENERATE
+  # Canal Zigbee (11-26). 11/15/20/25 son los habituales. Evita solapar con el
+  # canal de tu WiFi (1/6/11 en 2.4 GHz).
+  channel: 11
+  log_level: info
+  log_output:
+    - console
+  last_seen: ISO_8601
+  elapsed: false
+
+device_options:
+  # CRÍTICO: sin estado optimista. Zigbee2MQTT solo publica lo que el
+  # dispositivo reporta de verdad, así que un `OK` del script significa que la
+  # válvula confirmó el cambio, no que "debería" haberlo hecho.
+  optimistic: false
+
+frontend:
+  enabled: true
+  port: 8099
+
+availability:
+  enabled: true
+  active:
+    timeout: 10
+
+version: 5
+
+# Mapa IEEE → friendly_name. Los IEEE son PLACEHOLDER: los reales se obtienen
+# con `python3 valvulas.py list` o en la UI web tras emparejar cada dispositivo.
+devices:
+  '0x00124b0000000001':
+    friendly_name: valvula_riego
+  '0x00124b0000000002':
+    friendly_name: valvula_principal
+  '0x00124b0000000003':
+    friendly_name: interruptor

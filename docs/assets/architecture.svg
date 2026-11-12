@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="820" viewBox="0 0 1240 820" role="img" aria-labelledby="title desc">
+  <title id="title">Arquitectura de valvulas-zigbee</title>
+  <desc id="desc">Dos valvulas SONOFF SWV-NH y un interruptor ZBMINIL2 se comunican por Zigbee 2.4 GHz con un dongle Sonoff USB conectado a un host Linux donde corre Zigbee2MQTT en Docker, un broker Mosquitto local y los scripts Python de control.</desc>
+
+  <defs>
+    <style>
+      .bg      { fill: #0b0f14; }
+      .panel   { fill: #131a22; stroke: #253040; stroke-width: 1.5; }
+      .panel-2 { fill: #0f1620; stroke: #253040; stroke-width: 1.5; }
+      .band    { fill: #0e141c; stroke: #1d2733; stroke-width: 1.5; stroke-dasharray: 6 6; }
+      .t-title { fill: #e6edf3; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 30px; font-weight: 700; }
+      .t-sub   { fill: #8b949e; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 14px; }
+      .t-layer { fill: #6e7681; font-family: ui-monospace, "SFMono-Regular", Consolas, monospace; font-size: 12px; letter-spacing: 2.2px; }
+      .t-card  { fill: #e6edf3; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 16px; font-weight: 700; }
+      .t-mono  { fill: #8b949e; font-family: ui-monospace, "SFMono-Regular", Consolas, monospace; font-size: 12px; }
+      .t-label { fill: #c9d1d9; font-family: ui-monospace, "SFMono-Regular", Consolas, monospace; font-size: 11.5px; }
+      .t-tiny  { fill: #6e7681; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 11px; }
+      .accent-b { fill: #58a6ff; }
+      .accent-g { fill: #3fb950; }
+      .accent-a { fill: #d29922; }
+      .accent-p { fill: #bc8cff; }
+      .w-zig { stroke: #d29922; stroke-width: 2; fill: none; stroke-dasharray: 7 5; }
+      .w-usb { stroke: #58a6ff; stroke-width: 2.2; fill: none; }
+      .w-mqtt{ stroke: #3fb950; stroke-width: 2.2; fill: none; }
+      .w-net { stroke: #bc8cff; stroke-width: 2.2; fill: none; }
+    </style>
+
+    <marker id="arrow-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#d29922"/>
+    </marker>
+    <marker id="arrow-b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#58a6ff"/>
+    </marker>
+    <marker id="arrow-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#3fb950"/>
+    </marker>
+    <marker id="arrow-p" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#bc8cff"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1240" height="820"/>
+
+  <!-- Encabezado -->
+  <text class="t-title" x="48" y="56">valvulas-zigbee</text>
+  <text class="t-sub" x="48" y="82">Control local y offline de dos valvulas SONOFF SWV-NH y un interruptor ZBMINIL2 · cuatro capas, cero nube</text>
+  <line x1="48" y1="98" x2="1192" y2="98" stroke="#1d2733" stroke-width="1.5"/>
+
+  <!-- Banda 1: dispositivos -->
+  <text class="t-layer" x="48" y="126">1 · DISPOSITIVOS ZIGBEE · IEEE 802.15.4 · 2.4 GHz</text>
+
+  <g>
+    <rect class="panel" x="48" y="140" width="356" height="112" rx="14"/>
+    <circle cx="80" cy="172" r="11" fill="none" stroke="#3fb950" stroke-width="2"/>
+    <path d="M 74 172 L 86 172" stroke="#3fb950" stroke-width="2"/>
+    <text class="t-card" x="102" y="177">SONOFF SWV-NH</text>
+    <text class="t-mono" x="68" y="200">valvula_riego · EndDevice</text>
+    <text class="t-mono" x="68" y="219">valvula motorizada + caudalimetro</text>
+    <text class="t-mono" x="68" y="238">bateria · duerme en reposo</text>
+  </g>
+
+  <g>
+    <rect class="panel" x="442" y="140" width="356" height="112" rx="14"/>
+    <circle cx="474" cy="172" r="11" fill="none" stroke="#3fb950" stroke-width="2"/>
+    <path d="M 468 172 L 480 172" stroke="#3fb950" stroke-width="2"/>
+    <text class="t-card" x="496" y="177">SONOFF SWV-NH</text>
+    <text class="t-mono" x="462" y="200">valvula_principal · EndDevice</text>
+    <text class="t-mono" x="462" y="219">valvula motorizada + caudalimetro</text>
+    <text class="t-mono" x="462" y="238">bateria · duerme en reposo</text>
+  </g>
+
+  <g>
+    <rect class="panel" x="836" y="140" width="356" height="112" rx="14"/>
+    <circle cx="868" cy="172" r="11" fill="none" stroke="#58a6ff" stroke-width="2"/>
+    <path d="M 862 172 L 874 172" stroke="#58a6ff" stroke-width="2"/>
+    <text class="t-card" x="890" y="177">SONOFF ZBMINIL2</text>
+    <text class="t-mono" x="856" y="200">interruptor · sin neutro</text>
+    <text class="t-mono" x="856" y="219">alimentado a red · no duerme</text>
+    <text class="t-mono" x="856" y="238">responde en menos de 1 s</text>
+  </g>
+
+  <!-- Bus Zigbee -->
+  <path class="w-zig" d="M 226 252 L 226 286" marker-end="url(#arrow-a)"/>
+  <path class="w-zig" d="M 620 252 L 620 286" marker-end="url(#arrow-a)"/>
+  <path class="w-zig" d="M 1014 252 L 1014 286" marker-end="url(#arrow-a)"/>
+  <path d="M 226 286 L 1014 286" stroke="#d29922" stroke-width="2" stroke-dasharray="7 5" fill="none"/>
+  <path class="w-zig" d="M 620 286 L 620 320" marker-end="url(#arrow-a)"/>
+  <text class="t-label" x="640" y="310">tramas Zigbee 3.0 · AES-128 con network_key</text>
+
+  <!-- Banda 2: coordinador -->
+  <text class="t-layer" x="48" y="344">2 · COORDINADOR USB</text>
+  <rect class="panel" x="470" y="334" width="300" height="96" rx="14"/>
+  <text class="t-card" x="492" y="368">Dongle Sonoff USB Plus V2</text>
+  <text class="t-mono" x="492" y="390">EFR32MG21 · EZSP v13 · adapter: ember</text>
+  <text class="t-mono" x="492" y="410">/dev/ttyUSB0 → symlink by-id en produccion</text>
+
+  <!-- USB al host -->
+  <path class="w-usb" d="M 620 430 L 620 468" marker-end="url(#arrow-b)"/>
+  <text class="t-label" x="636" y="456">USB 2.0 · serie</text>
+
+  <!-- Banda 3: host docker -->
+  <rect class="band" x="48" y="462" width="1144" height="252" rx="16"/>
+  <text class="t-layer" x="68" y="492">3 · HOST LINUX · DOCKER (network_mode: host)</text>
+
+  <g>
+    <rect class="panel-2" x="88" y="508" width="420" height="164" rx="14"/>
+    <text class="t-card" x="108" y="540">Zigbee2MQTT 2.13</text>
+    <text class="t-mono" x="108" y="562">koenkk/zigbee2mqtt:latest</text>
+    <text class="t-mono" x="108" y="584">habla Zigbee por el dongle</text>
+    <text class="t-mono" x="108" y="604">traduce a JSON sobre MQTT</text>
+    <text class="t-mono" x="108" y="626">frontend web :8099</text>
+    <text class="t-mono" x="108" y="648">optimistic: false</text>
+  </g>
+
+  <g>
+    <rect class="panel-2" x="548" y="508" width="220" height="164" rx="14"/>
+    <text class="t-card" x="568" y="540">Mosquitto</text>
+    <text class="t-mono" x="568" y="562">localhost:1883</text>
+    <text class="t-mono" x="568" y="584">allow_anonymous</text>
+    <text class="t-mono" x="568" y="604">listener 127.0.0.1</text>
+    <text class="t-mono" x="568" y="630">sin TLS</text>
+    <text class="t-mono" x="568" y="648">solo loopback</text>
+  </g>
+
+  <g>
+    <rect class="panel-2" x="808" y="508" width="344" height="164" rx="14"/>
+    <text class="t-card" x="828" y="540">Scripts Python</text>
+    <text class="t-mono" x="828" y="562">valvulas.py (CLI)</text>
+    <text class="t-mono" x="828" y="584">menu_valvulas.py (menu)</text>
+    <text class="t-mono" x="828" y="606">paho-mqtt 2.x · QoS 1</text>
+    <text class="t-mono" x="828" y="628">espera confirmacion real</text>
+    <text class="t-mono" x="828" y="650">exit code 0 / 1</text>
+  </g>
+
+  <path class="w-mqtt" d="M 508 560 L 548 560" marker-end="url(#arrow-g)"/>
+  <path class="w-mqtt" d="M 508 604 L 548 604" marker-start="url(#arrow-g)"/>
+  <path class="w-mqtt" d="M 768 560 L 808 560" marker-start="url(#arrow-g)"/>
+  <path class="w-mqtt" d="M 768 604 L 808 604" marker-end="url(#arrow-g)"/>
+  <text class="t-label" x="512" y="546">MQTT</text>
+  <text class="t-label" x="772" y="546">MQTT</text>
+
+  <!-- Frontera de red -->
+  <path class="w-net" d="M 1136 700 L 1136 726 L 1180 726 L 1180 700" fill="none" marker-end="url(#arrow-p)"/>
+  <text class="t-tiny" x="1052" y="744">Opcional: LAN para :8099</text>
+
+  <!-- Leyenda -->
+  <line x1="48" y1="756" x2="1192" y2="756" stroke="#1d2733" stroke-width="1.5"/>
+  <g>
+    <line x1="48" y1="782" x2="88" y2="782" stroke="#d29922" stroke-width="2" stroke-dasharray="7 5"/>
+    <text class="t-tiny" x="96" y="786">Zigbee 2.4 GHz</text>
+
+    <line x1="236" y1="782" x2="276" y2="782" stroke="#58a6ff" stroke-width="2.2"/>
+    <text class="t-tiny" x="284" y="786">USB / serie</text>
+
+    <line x1="392" y1="782" x2="432" y2="782" stroke="#3fb950" stroke-width="2.2"/>
+    <text class="t-tiny" x="440" y="786">MQTT local</text>
+
+    <text class="t-tiny" x="1002" y="786">Sin internet · sin cuentas · sin nube</text>
+  </g>
+</svg>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="900" viewBox="0 0 1240 900" role="img" aria-labelledby="title desc">
+  <title id="title">Recorrido de un comando open/close</title>
+  <desc id="desc">Diagrama de secuencia vertical con los ocho pasos que recorre un comando de apertura desde la CLI Python hasta la valvula SONOFF SWV-NH y la confirmacion real de vuelta, incluyendo el paso previo de despertar el end device a bateria.</desc>
+
+  <defs>
+    <style>
+      .bg      { fill: #0b0f14; }
+      .card    { fill: #131a22; stroke: #253040; stroke-width: 1.4; }
+      .card-hi { fill: #101b26; stroke: #1f6feb; stroke-width: 1.6; }
+      .t-title { fill: #e6edf3; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 29px; font-weight: 700; }
+      .t-sub   { fill: #8b949e; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 14px; }
+      .t-step  { fill: #e6edf3; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 15px; font-weight: 700; }
+      .t-mono  { fill: #8b949e; font-family: ui-monospace, "SFMono-Regular", Consolas, monospace; font-size: 12px; }
+      .t-num   { fill: #0b0f14; font-family: ui-monospace, "SFMono-Regular", Consolas, monospace; font-size: 14px; font-weight: 700; }
+      .t-foot  { fill: #6e7681; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 11.5px; }
+      .spine   { stroke: #253040; stroke-width: 2; fill: none; }
+    </style>
+
+    <marker id="a-down" viewBox="0 0 10 10" refX="5" refY="9" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 0 L 5 10 z" fill="#3d4b5c"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1240" height="900"/>
+
+  <text class="t-title" x="48" y="54">Un comando, ocho pasos</text>
+  <text class="t-sub" x="48" y="80">python3 valvulas.py open valvula_riego · el exito solo se declara cuando la valvula confirma</text>
+  <line x1="48" y1="96" x2="1192" y2="96" stroke="#1d2733" stroke-width="1.5"/>
+
+  <path class="spine" d="M 120 126 L 120 812" marker-end="url(#a-down)"/>
+
+  <!-- 1 -->
+  <circle cx="120" cy="160" r="17" fill="#bc8cff"/>
+  <text class="t-num" x="114" y="165">1</text>
+  <rect class="card" x="168" y="126" width="1024" height="68" rx="12"/>
+  <text class="t-step" x="190" y="152">La CLI publica el comando en el topic /set</text>
+  <text class="t-mono" x="190" y="174">PUB zigbee2mqtt/valvula_riego/set  QoS 1  {"state":"ON"}   (no retenido)</text>
+
+  <!-- 2 -->
+  <circle cx="120" cy="248" r="17" fill="#3fb950"/>
+  <text class="t-num" x="114" y="253">2</text>
+  <rect class="card" x="168" y="214" width="1024" height="68" rx="12"/>
+  <text class="t-step" x="190" y="240">Mosquitto enruta el mensaje al contenedor suscrito</text>
+  <text class="t-mono" x="190" y="262">broker local 127.0.0.1:1883 · sin autenticacion · solo loopback</text>
+
+  <!-- 3 -->
+  <circle cx="120" cy="336" r="17" fill="#58a6ff"/>
+  <text class="t-num" x="114" y="341">3</text>
+  <rect class="card" x="168" y="302" width="1024" height="68" rx="12"/>
+  <text class="t-step" x="190" y="328">Zigbee2MQTT traduce JSON a una orden ZCL</text>
+  <text class="t-mono" x="190" y="350">endpoint 1 · cluster OnOff · genOn / genOff · optimistic: false (no inventa estado)</text>
+
+  <!-- 4 -->
+  <circle cx="120" cy="424" r="17" fill="#d29922"/>
+  <text class="t-num" x="114" y="429">4</text>
+  <rect class="card" x="168" y="390" width="1024" height="68" rx="12"/>
+  <text class="t-step" x="190" y="416">El dongle lo emite por radio y espera el ACK del end device</text>
+  <text class="t-mono" x="190" y="438">EFR32MG21 · 2.4 GHz · AES-128 · reintentos automaticos del stack</text>
+
+  <!-- 5 -->
+  <circle cx="120" cy="512" r="17" fill="#d29922"/>
+  <text class="t-num" x="114" y="517">5</text>
+  <rect class="card-hi" x="168" y="478" width="1024" height="68" rx="12"/>
+  <text class="t-step" x="190" y="504">Si la valvula duerme, el script la despierta antes con un /get</text>
+  <text class="t-mono" x="190" y="526">PUB zigbee2mqtt/valvula_riego/get {"state":""} · la SWV-NH responde y sale del sueno profundo</text>
+
+  <!-- 6 -->
+  <circle cx="120" cy="600" r="17" fill="#3fb950"/>
+  <text class="t-num" x="114" y="605">6</text>
+  <rect class="card" x="168" y="566" width="1024" height="68" rx="12"/>
+  <text class="t-step" x="190" y="592">La valvula acciona el motor y reporta su estado real</text>
+  <text class="t-mono" x="190" y="614">PUB zigbee2mqtt/valvula_riego  {"state":"ON","flow":0.12,"battery":100,"linkquality":255}</text>
+
+  <!-- 7 -->
+  <circle cx="120" cy="688" r="17" fill="#3fb950"/>
+  <text class="t-num" x="114" y="693">7</text>
+  <rect class="card" x="168" y="654" width="1024" height="68" rx="12"/>
+  <text class="t-step" x="190" y="680">La CLI compara el estado recibido con el solicitado</text>
+  <text class="t-mono" x="190" y="702">wait_for(topic, state == "ON", timeout=15 s) · descarta antes el estado cacheado</text>
+
+  <!-- 8 -->
+  <circle cx="120" cy="776" r="17" fill="#58a6ff"/>
+  <text class="t-num" x="114" y="781">8</text>
+  <rect class="card" x="168" y="742" width="1024" height="68" rx="12"/>
+  <text class="t-step" x="190" y="768">Resultado honesto: OK con metricas, o error con exit code 1</text>
+  <text class="t-mono" x="190" y="790">OK: 'valvula_riego' quedo abierta · bateria 100 % · caudal 0.120 m3/h (2.0 L/min) · 0 L</text>
+
+  <text class="t-foot" x="48" y="856">Sin internet en ningun paso. Si el dispositivo no responde en el timeout, el comando falla; nunca se asume exito.</text>
+  <text class="t-foot" x="48" y="876">Tras reiniciar el coordinador las valvulas a bateria tardan 2-5 min en hacer check-in: durante ese lapso los comandos caducan.</text>
+</svg>

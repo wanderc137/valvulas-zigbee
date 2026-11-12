@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="860" viewBox="0 0 1240 860" role="img" aria-labelledby="title desc">
+  <title id="title">Despliegue en la Raspberry Pi</title>
+  <desc id="desc">Esquema del despliegue: unidades systemd que arrancan Docker, Mosquitto y el stack de Zigbee2MQTT, el contenedor unico con el dongle USB mapeado, el volumen de configuracion montado en /app/data y los scripts Python que se ejecutan bajo demanda, junto con la frontera de red local.</desc>
+
+  <defs>
+    <style>
+      .bg       { fill: #0b0f14; }
+      .panel    { fill: #131a22; stroke: #253040; stroke-width: 1.5; }
+      .panel-2  { fill: #0f1620; stroke: #253040; stroke-width: 1.4; }
+      .chip     { fill: #17212c; stroke: #26313e; stroke-width: 1.3; }
+      .t-title  { fill: #e6edf3; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 29px; font-weight: 700; }
+      .t-sub    { fill: #8b949e; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 14px; }
+      .t-head   { fill: #c9d1d9; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 1.4px; }
+      .t-card   { fill: #e6edf3; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 15px; font-weight: 700; }
+      .t-mono   { fill: #8b949e; font-family: ui-monospace, "SFMono-Regular", Consolas, monospace; font-size: 11.5px; }
+      .t-tree   { fill: #8b949e; font-family: ui-monospace, "SFMono-Regular", Consolas, monospace; font-size: 12px; }
+      .t-treehi { fill: #58a6ff; font-family: ui-monospace, "SFMono-Regular", Consolas, monospace; font-size: 12px; }
+      .t-foot   { fill: #6e7681; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 11.5px; }
+      .rule     { stroke: #1d2733; stroke-width: 1.4; }
+      .arrow    { stroke: #3d4b5c; stroke-width: 2; fill: none; }
+    </style>
+
+    <marker id="d-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#3d4b5c"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1240" height="860"/>
+
+  <text class="t-title" x="48" y="54">Despliegue en la Raspberry Pi</text>
+  <text class="t-sub" x="48" y="80">Un host, cuatro piezas que arrancan solas y dos scripts que se ejecutan a mano</text>
+  <line class="rule" x1="48" y1="96" x2="1192" y2="96"/>
+
+  <!-- Panel host -->
+  <rect class="panel" x="48" y="112" width="728" height="688" rx="16"/>
+  <text class="t-head" x="72" y="144">HOST · RASPBERRY PI 4 · DEBIAN 11 · AARCH64</text>
+
+  <!-- systemd chips -->
+  <rect class="chip" x="72" y="160" width="210" height="64" rx="10"/>
+  <text class="t-card" x="86" y="186">docker.service</text>
+  <text class="t-mono" x="86" y="206">enabled · motor</text>
+
+  <rect class="chip" x="298" y="160" width="210" height="64" rx="10"/>
+  <text class="t-card" x="312" y="186">mosquitto.service</text>
+  <text class="t-mono" x="312" y="206">enabled · :1883 loopback</text>
+
+  <rect class="chip" x="524" y="160" width="228" height="64" rx="10"/>
+  <text class="t-card" x="538" y="186">zigbee2mqtt.service</text>
+  <text class="t-mono" x="538" y="206">oneshot · docker compose up -d</text>
+
+  <path class="arrow" d="M 412 226 L 412 256" marker-end="url(#d-arrow)"/>
+
+  <!-- Docker band -->
+  <rect class="panel-2" x="72" y="258" width="680" height="196" rx="14"/>
+  <text class="t-mono" x="88" y="282">Docker Engine · contenedor unico</text>
+  <rect class="chip" x="88" y="296" width="648" height="142" rx="12"/>
+  <text class="t-card" x="104" y="322">zigbee2mqtt · koenkk/zigbee2mqtt:latest</text>
+  <text class="t-mono" x="104" y="344">network_mode: host      → alcanza 127.0.0.1:1883 y expone el frontend :8099</text>
+  <text class="t-mono" x="104" y="364">devices: /dev/serial/by-id/... → /dev/ttyUSB0</text>
+  <text class="t-mono" x="104" y="384">volumes: ./config → /app/data</text>
+  <text class="t-mono" x="104" y="404">restart: unless-stopped  ·  TZ=America/Santiago</text>
+  <text class="t-mono" x="104" y="424">proceso node.js · ~100 MB RAM · no matar a mano</text>
+
+  <path class="arrow" d="M 412 454 L 412 480" marker-end="url(#d-arrow)"/>
+
+  <!-- config volume -->
+  <rect class="panel-2" x="72" y="482" width="680" height="106" rx="14"/>
+  <text class="t-card" x="88" y="508">Volumen de configuracion · ./config</text>
+  <text class="t-mono" x="88" y="530">configuration.yaml (network_key, pan_id, devices)  ·  database.db  ·  state.json</text>
+  <text class="t-mono" x="88" y="550">coordinator_backup.json  ·  configuration_backup_*.yaml  ·  migration-*.log</text>
+  <text class="t-mono" x="88" y="572">Respaldo critico: sin database.db hay que re-emparejar cada valvula a mano</text>
+
+  <path class="arrow" d="M 412 588 L 412 612" marker-end="url(#d-arrow)"/>
+
+  <!-- MQTT -->
+  <rect class="panel-2" x="72" y="614" width="330" height="76" rx="14"/>
+  <text class="t-card" x="88" y="640">Mosquitto nativo</text>
+  <text class="t-mono" x="88" y="660">listener 1883 127.0.0.1</text>
+  <text class="t-mono" x="88" y="678">allow_anonymous true</text>
+
+  <!-- Python -->
+  <rect class="panel-2" x="422" y="614" width="330" height="76" rx="14"/>
+  <text class="t-card" x="438" y="640">Python 3 + paho-mqtt 2.x</text>
+  <text class="t-mono" x="438" y="660">valvulas.py · menu_valvulas.py</text>
+  <text class="t-mono" x="438" y="678">bajo demanda, sin servicio</text>
+
+  <path class="arrow" d="M 402 652 L 418 652" marker-end="url(#d-arrow)"/>
+
+  <text class="t-mono" x="72" y="726">Usuario en grupos docker y dialout · SSH para administracion</text>
+  <text class="t-mono" x="72" y="746">Tras reboot: 40-60 s para servicios, 2-5 min para el check-in de las valvulas</text>
+  <text class="t-foot" x="72" y="778">Los scripts no son un servicio: se invocan cuando hace falta. La UI web de Zigbee2MQTT queda en el puerto 8099.</text>
+
+  <!-- Panel derecho: frontera -->
+  <rect class="panel" x="800" y="112" width="392" height="300" rx="16"/>
+  <text class="t-head" x="824" y="144">FRONTERA DE RED</text>
+
+  <text class="t-card" x="824" y="176">Permitido en LAN</text>
+  <text class="t-mono" x="824" y="198">SSH al host (administracion)</text>
+  <text class="t-mono" x="824" y="218">HTTP :8099 (frontend Z2M)</text>
+
+  <text class="t-card" x="824" y="248">Solo loopback</text>
+  <text class="t-mono" x="824" y="270">MQTT 127.0.0.1:1883</text>
+  <text class="t-mono" x="824" y="290">paho-mqtt de los scripts</text>
+
+  <text class="t-card" x="824" y="320">Nunca sale del host</text>
+  <text class="t-mono" x="824" y="342">network_key y database.db</text>
+  <text class="t-mono" x="824" y="362">IEEE de los dispositivos</text>
+  <text class="t-mono" x="824" y="382">Ningun dato a la nube</text>
+
+  <!-- Panel derecho: arbol -->
+  <rect class="panel" x="800" y="428" width="392" height="372" rx="16"/>
+  <text class="t-head" x="824" y="460">REPOSITORIO</text>
+  <text class="t-treehi" x="828" y="490">valvulas-zigbee/</text>
+  <text class="t-tree" x="828" y="510">&#9500;&#9472; valvulas.py</text>
+  <text class="t-tree" x="828" y="530">&#9500;&#9472; menu_valvulas.py</text>
+  <text class="t-tree" x="828" y="550">&#9500;&#9472; docker-compose.yml</text>
+  <text class="t-tree" x="828" y="570">&#9500;&#9472; LICENSE</text>
+  <text class="t-tree" x="828" y="590">&#9500;&#9472; README.md</text>
+  <text class="t-tree" x="828" y="610">&#9500;&#9472; config/</text>
+  <text class="t-tree" x="828" y="630">&#9474;   &#9500;&#9472; configuration.example.yaml</text>
+  <text class="t-tree" x="828" y="650">&#9474;   &#9492;&#9472; configuration.yaml (real)</text>
+  <text class="t-tree" x="828" y="670">&#9492;&#9472; docs/</text>
+  <text class="t-tree" x="828" y="690">    &#9500;&#9472; datasheet.md</text>
+  <text class="t-tree" x="828" y="710">    &#9500;&#9472; developer.md</text>
+  <text class="t-tree" x="828" y="730">    &#9500;&#9472; migracion-raspberry-pi.md</text>
+  <text class="t-tree" x="828" y="750">    &#9500;&#9472; REFERENCES.md</text>
+  <text class="t-tree" x="828" y="770">    &#9500;&#9472; BITACORA.md</text>
+  <text class="t-tree" x="828" y="790">    &#9492;&#9472; assets/ *.svg</text>
+
+  <text class="t-foot" x="48" y="836">Nota: configuration.yaml real contiene la network_key y los IEEE; se sustituye por configuration.example.yaml antes de publicar.</text>
+</svg>

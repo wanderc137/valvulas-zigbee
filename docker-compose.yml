@@ -1,0 +1,20 @@
+# Despliegue de Zigbee2MQTT en Docker para control LOCAL/OFFLINE de válvulas Zigbee.
+# Uso: docker compose up -d && docker compose logs -f
+#
+# Requisitos:
+#   - Dongle Sonoff en /dev/ttyUSB0 (chip EFR32, adapter "ember")
+#   - Broker Mosquitto local activo en localhost:1883 (allow_anonymous true)
+#   - Usuario del sistema en grupos dialout y docker
+
+services:
+  zigbee2mqtt:
+    image: koenkk/zigbee2mqtt:latest
+    container_name: zigbee2mqtt
+    restart: unless-stopped
+    network_mode: host
+    devices:
+      - /dev/ttyUSB0:/dev/ttyUSB0
+    volumes:
+      - ./config:/app/data
+    environment:
+      - TZ=America/Santiago
