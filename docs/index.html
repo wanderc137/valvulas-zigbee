@@ -1,24 +1,25 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>Riego local, sin nube. · Válvulas Zigbee</title>
-<meta name="description" content="Control local de dos válvulas SONOFF SWV-NH y un interruptor ZBMINIL2 con Zigbee2MQTT, Mosquitto y una CLI Python.">
-<meta name="author" content="wanderc137">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Riego local, sin nube. · Válvulas Zigbee">
-<meta property="og:description" content="Control local de dos válvulas SONOFF SWV-NH y un interruptor ZBMINIL2 con Zigbee2MQTT, Mosquitto y una CLI Python.">
-<meta property="og:url" content="https://wanderc137.github.io/valvulas-zigbee/">
-<meta property="og:image" content="https://wanderc137.github.io/valvulas-zigbee/assets/og.png">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Riego local, sin nube. · Válvulas Zigbee">
-<meta name="twitter:description" content="Control local de dos válvulas SONOFF SWV-NH y un interruptor ZBMINIL2 con Zigbee2MQTT, Mosquitto y una CLI Python.">
-<meta name="twitter:image" content="https://wanderc137.github.io/valvulas-zigbee/assets/og.png">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2305070c'/><rect x='22' y='22' width='56' height='56' rx='12' fill='none' stroke='%237CFF6B' stroke-width='7'/><circle cx='50' cy='50' r='9' fill='%237CFF6B'/></svg>">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<meta content="Control local de dos válvulas SONOFF SWV-NH y un interruptor ZBMINIL2 con Zigbee2MQTT, Mosquitto y una CLI Python." name="description"/>
+<meta content="wanderc137" name="author"/>
+<meta content="website" property="og:type"/>
+<meta content="Riego local, sin nube. · Válvulas Zigbee" property="og:title"/>
+<meta content="Control local de dos válvulas SONOFF SWV-NH y un interruptor ZBMINIL2 con Zigbee2MQTT, Mosquitto y una CLI Python." property="og:description"/>
+<meta content="https://wanderc137.github.io/valvulas-zigbee/" property="og:url"/>
+<meta content="https://wanderc137.github.io/valvulas-zigbee/assets/og.png" property="og:image"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Riego local, sin nube. · Válvulas Zigbee" name="twitter:title"/>
+<meta content="Control local de dos válvulas SONOFF SWV-NH y un interruptor ZBMINIL2 con Zigbee2MQTT, Mosquitto y una CLI Python." name="twitter:description"/>
+<meta content="https://wanderc137.github.io/valvulas-zigbee/assets/og.png" name="twitter:image"/>
+<link href="data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'&gt;&lt;rect width='100' height='100' rx='22' fill='%2305070c'/&gt;&lt;rect x='22' y='22' width='56' height='56' rx='12' fill='none' stroke='%237CFF6B' stroke-width='7'/&gt;&lt;circle cx='50' cy='50' r='9' fill='%237CFF6B'/&gt;&lt;/svg&gt;" rel="icon"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth;scrollbar-width:none}
@@ -257,181 +258,200 @@ footer{position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.08);pa
   .foot-grid{grid-template-columns:1fr}
   .section{padding:72px 0}
 }
+
+.fail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:6px}
+.fail{background:rgba(10,18,24,.55);border:1px solid var(--line);border-radius:14px;padding:18px}
+.fail .v{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.fail h3{font-size:16px;margin:8px 0 6px}
+.fail p{font-size:14px;margin:0;color:var(--muted)}
+.rating-head{display:flex;align-items:center;gap:20px;margin:6px 0 18px;padding:18px 20px;border:1px solid var(--line);border-radius:16px;background:rgba(10,18,24,.5)}
+.rating-avg{font-family:var(--mono);font-size:40px;line-height:1;color:var(--accent)}
+.rating-avg small{font-size:14px;color:var(--muted)}
+.rating-head p{margin:4px 0 0;font-size:14px;color:var(--muted);max-width:70ch}
+.rating{display:grid;gap:2px}
+.rating-row{display:grid;grid-template-columns:165px minmax(90px,1fr) 48px;gap:14px;align-items:center;padding:11px 0;border-bottom:1px solid var(--line)}
+.rating-row:last-child{border-bottom:0}
+.rating-name{font-size:13.5px;color:var(--text)}
+.rating-bar{height:6px;border-radius:99px;background:rgba(148,190,200,.14);overflow:hidden}
+.rating-bar span{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+.rating-score{font-family:var(--mono);font-size:12px;color:var(--muted);text-align:right}
+.rating-note{grid-column:1/-1;font-size:12.5px;color:var(--muted);margin:-4px 0 8px}
+.faq{display:grid;gap:10px;margin-top:4px}
+.faq details{border:1px solid var(--line);border-radius:14px;padding:14px 18px;background:rgba(10,18,24,.4)}
+.faq summary{cursor:pointer;font-weight:600;font-size:14.5px;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";float:right;color:var(--accent);font-family:var(--mono)}
+.faq details[open] summary::after{content:"−"}
+.faq p{margin:10px 0 0;font-size:14px;color:var(--muted);line-height:1.7}
+.concept-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:26px;align-items:start}
+.concept-grid p{font-size:15.5px;color:var(--muted);line-height:1.8;margin:0 0 14px}
+.concept-side{border-left:1px solid var(--line);padding-left:22px}
+.concept-side .k{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.concept-side p{font-size:13px;margin:6px 0 16px}
+@media(max-width:760px){.concept-grid,.fail-grid{grid-template-columns:1fr}.concept-side{border-left:0;padding-left:0}}
+
 </style>
-<link rel="stylesheet" href="assets/community.css?v=5"></head>
+<link href="assets/community.css?v=5" rel="stylesheet"/></head>
 <body style="--accent:#7CFF6B;--accent2:#22D3EE">
 <div class="grid-overlay"></div>
 <div class="glow one"></div>
 <div class="glow two"></div>
-
 <header class="nav">
-  <div class="wrap nav-inner">
-    <a class="brand" href="#top">
-      <span class="brand-mark"><svg viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="3"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/><circle cx="12" cy="12" r="2.5"/></svg></span>
-      <span>Válvulas Zigbee<small>Portfolio · Sensores &amp; IoT</small></span>
-    </a>
-    <nav class="nav-links" aria-label="Navegación">
-      <a href="#problema">Visión</a>
-      <a href="#como">Cómo funciona</a>
-      <a href="#arquitectura">Arquitectura</a>
-      <a href="#docs">Documentación</a>
-      <a href="#comunidad">Comunidad</a>
-      <a class="btn btn-ghost" style="padding:9px 15px" href="https://github.com/wanderc137/valvulas-zigbee" target="_blank" rel="noopener">GitHub</a>
-    </nav>
-  </div>
+<div class="wrap nav-inner">
+<a class="brand" href="#top">
+<span class="brand-mark"><svg viewbox="0 0 24 24"><rect height="14" rx="3" width="14" x="5" y="5"></rect><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"></path><circle cx="12" cy="12" r="2.5"></circle></svg></span>
+<span>Válvulas Zigbee<small>Portfolio · Sensores &amp; IoT</small></span>
+</a>
+<nav aria-label="Navegación" class="nav-links">
+<a href="#problema">Visión</a>
+<a href="#como">Cómo funciona</a>
+<a href="#arquitectura">Arquitectura</a>
+<a href="#docs">Documentación</a>
+<a href="#comunidad">Comunidad</a>
+<a class="btn btn-ghost" href="https://github.com/wanderc137/valvulas-zigbee" rel="noopener" style="padding:9px 15px" target="_blank">GitHub</a>
+</nav>
+</div>
 </header>
-
 <main id="top">
 <section class="hero">
-  <div class="wrap hero-grid">
-    <div class="hero-copy">
-      <div class="eyebrow">ZIGBEE · MQTT · LOCAL</div>
-      <h1>Riego local,<br><span class='grad'>sin nube.</span></h1>
-      <p class="lead">Dos válvulas SONOFF y un interruptor Zigbee controlados por Zigbee2MQTT y MQTT, con CLI y menú. Todo queda en tu red.</p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="https://github.com/wanderc137/valvulas-zigbee" target="_blank" rel="noopener">Ver el repositorio <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        <a class="btn btn-ghost" href="https://github.com/wanderc137/valvulas-zigbee#readme" target="_blank" rel="noopener">Leer la documentación</a>
-      </div>
-      <div class="hero-badges"><span class="badge">Zigbee2MQTT</span><span class="badge">Sonoff</span><span class="badge">MQTT</span><span class="badge">Docker</span><span class="badge">Python</span><span class="badge">MIT</span></div>
-    </div>
-    <div class="hero-visual">
-      <div class="visual-frame"><img src="assets/architecture.svg" alt="Arquitectura Zigbee local con válvulas, coordinador, Zigbee2MQTT y MQTT"></div>
-      <div class="visual-caption">Las válvulas hablan Zigbee; Zigbee2MQTT y Mosquitto lo traducen a MQTT local.</div>
-      <div class="float-chip"><span class="live-dot"></span>100% local</div>
-    </div>
-  </div>
+<div class="wrap hero-grid">
+<div class="hero-copy">
+<div class="eyebrow">ZIGBEE · MQTT · LOCAL</div>
+<h1>Riego local,<br/><span class="grad">sin nube.</span></h1>
+<p class="lead">Dos válvulas SONOFF y un interruptor Zigbee controlados por Zigbee2MQTT y MQTT, con CLI y menú. Todo queda en tu red.</p>
+<div class="hero-actions">
+<a class="btn btn-primary" href="https://github.com/wanderc137/valvulas-zigbee" rel="noopener" target="_blank">Ver el repositorio <svg viewbox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+<a class="btn btn-ghost" href="https://github.com/wanderc137/valvulas-zigbee#readme" rel="noopener" target="_blank">Leer la documentación</a>
+</div>
+<div class="hero-badges"><span class="badge">Zigbee2MQTT</span><span class="badge">Sonoff</span><span class="badge">MQTT</span><span class="badge">Docker</span><span class="badge">Python</span><span class="badge">MIT</span></div>
+</div>
+<div class="hero-visual">
+<div class="visual-frame"><img alt="Arquitectura Zigbee local con válvulas, coordinador, Zigbee2MQTT y MQTT" src="assets/architecture.svg"/></div>
+<div class="visual-caption">Las válvulas hablan Zigbee; Zigbee2MQTT y Mosquitto lo traducen a MQTT local.</div>
+<div class="float-chip"><span class="live-dot"></span>100% local</div>
+</div>
+</div>
 </section>
-
-<section class="stats"><div class="wrap stats-grid"><div class="stat"><div class="stat-value">2</div><div class="stat-label">válvulas</div></div><div class="stat"><div class="stat-value">1</div><div class="stat-label">interruptor</div></div><div class="stat"><div class="stat-value">0</div><div class="stat-label">nube</div></div><div class="stat"><div class="stat-value">100%</div><div class="stat-label">local</div></div></div></section>
-
+<section class="stats"><div class="wrap stats-grid"><div class="stat"><div class="stat-value">2</div><div class="stat-label">válvulas</div></div><div class="stat"><div class="stat-value">1</div><div class="stat-label">interruptor</div></div><div class="stat"><div class="stat-value">0</div><div class="stat-label">nube</div></div><div class="stat"><div class="stat-value">100%</div><div class="stat-label">local</div></div></div></section><section class="section" id="concepto"><div class="wrap"><div class="section-head"><div class="kicker">El concepto</div><h2>Qué es y por qué existe</h2><p class="section-sub">El problema, el enfoque y el alcance real del proyecto.</p></div><div class="concept-grid"><div><p>Control local de dos válvulas SONOFF SWV-NH y un interruptor ZBMINIL2 mediante Zigbee2MQTT y Mosquitto, sin nube ni cuenta de fabricante. Una CLI en Python y un menú interactivo permiten listar dispositivos, abrir o cerrar válvulas, consultar caudal y batería, y emparejar nodos; cada comando despierta al dispositivo dormido y espera la confirmación real del estado. Apunta a instalaciones domésticas o pequeñas parcelas con un servidor Linux y un dongle Zigbee.</p><p>Demuestra que un end device a batería puede comandarse de forma fiable si se respeta su ciclo de sueño, y documenta métricas medidas en Raspberry Pi 4: 0,5–2 s de confirmación con la válvula despierta y 2–8 s dormida, ~100 MB de RAM y cero tráfico a Internet. No incluye planificador de riego, autenticación MQTT, alta disponibilidad ni TLS; la confirmación depende de un timeout y puede fallar aunque el riego se ejecute.</p></div><div class="concept-side"><div class="k">Cómo leer esta ficha</div><p>Los tropiezos salen de la bitácora y de las versiones tempranas. La evaluación usa seis criterios fijos, de 1 a 5, y no premia la espectacularidad: premia que el proyecto se pueda reproducir y entender.</p></div></div></div></section>
 <section class="section" id="problema">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div class="kicker">01 — La idea</div>
-      <h2>El agua no necesita una cuenta en la nube</h2>
-      <p class="section-sub">Zigbee2MQTT y Mosquitto alcanzan para controlar el riego sin depender de un fabricante ni de internet.</p>
-    </div>
-    <div class="split">
-      <div class="card reveal"><div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2.5 20h19L12 3Z"/><path d="M12 9v5M12 17v.01"/></svg></div><h3>El problema</h3><p>Muchas válvulas inteligentes requieren una app del fabricante y una cuenta en la nube. Si se cae internet o el servicio, el riego queda inaccesible. Además, los datos de uso salen de la casa.</p></div>
-      <div class="card reveal"><div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M1 9h3M1 15h3M20 9h3M20 15h3"/><rect x="9.5" y="9.5" width="5" height="5" rx="1"/></svg></div><h3>La solución</h3><p>Un coordinador Zigbee local, Zigbee2MQTT en Docker y Mosquitto. Dos válvulas SONOFF SWV-NH y un interruptor ZBMINIL2 se controlan por MQTT con una CLI y un menú interactivo.</p></div>
-    </div>
-  </div>
+<div class="wrap">
+<div class="section-head reveal">
+<div class="kicker">01 — La idea</div>
+<h2>El agua no necesita una cuenta en la nube</h2>
+<p class="section-sub">Zigbee2MQTT y Mosquitto alcanzan para controlar el riego sin depender de un fabricante ni de internet.</p>
+</div>
+<div class="split">
+<div class="card reveal"><div class="icon"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M12 3 2.5 20h19L12 3Z"></path><path d="M12 9v5M12 17v.01"></path></svg></div><h3>El problema</h3><p>Muchas válvulas inteligentes requieren una app del fabricante y una cuenta en la nube. Si se cae internet o el servicio, el riego queda inaccesible. Además, los datos de uso salen de la casa.</p></div>
+<div class="card reveal"><div class="icon"><svg aria-hidden="true" viewbox="0 0 24 24"><rect height="12" rx="2" width="12" x="6" y="6"></rect><path d="M9 1v3M15 1v3M9 20v3M15 20v3M1 9h3M1 15h3M20 9h3M20 15h3"></path><rect height="5" rx="1" width="5" x="9.5" y="9.5"></rect></svg></div><h3>La solución</h3><p>Un coordinador Zigbee local, Zigbee2MQTT en Docker y Mosquitto. Dos válvulas SONOFF SWV-NH y un interruptor ZBMINIL2 se controlan por MQTT con una CLI y un menú interactivo.</p></div>
+</div>
+</div>
 </section>
-
 <section class="section tight" id="como">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div class="kicker">02 — El recorrido</div>
-      <h2>Cómo funciona, paso a paso</h2>
-      <p class="section-sub">Del botón físico al caudal, sin pasar por internet.</p>
-    </div>
-    <div class="timeline reveal"><div class="step"><div class="step-num">01</div><div class="step-body"><h3>Emparejar</h3><p>Las válvulas y el interruptor se unen al coordinador Zigbee local.</p></div></div><div class="step"><div class="step-num">02</div><div class="step-body"><h3>Publicar</h3><p>Zigbee2MQTT traduce los estados a topics MQTT legibles.</p></div></div><div class="step"><div class="step-num">03</div><div class="step-body"><h3>Decidir</h3><p>La CLI o el menú publican la orden de abrir o cerrar.</p></div></div><div class="step"><div class="step-num">04</div><div class="step-body"><h3>Confirmar</h3><p>El estado real vuelve por MQTT y se muestra en la consola.</p></div></div></div>
-  </div>
+<div class="wrap">
+<div class="section-head reveal">
+<div class="kicker">02 — El recorrido</div>
+<h2>Cómo funciona, paso a paso</h2>
+<p class="section-sub">Del botón físico al caudal, sin pasar por internet.</p>
+</div>
+<div class="timeline reveal"><div class="step"><div class="step-num">01</div><div class="step-body"><h3>Emparejar</h3><p>Las válvulas y el interruptor se unen al coordinador Zigbee local.</p></div></div><div class="step"><div class="step-num">02</div><div class="step-body"><h3>Publicar</h3><p>Zigbee2MQTT traduce los estados a topics MQTT legibles.</p></div></div><div class="step"><div class="step-num">03</div><div class="step-body"><h3>Decidir</h3><p>La CLI o el menú publican la orden de abrir o cerrar.</p></div></div><div class="step"><div class="step-num">04</div><div class="step-body"><h3>Confirmar</h3><p>El estado real vuelve por MQTT y se muestra en la consola.</p></div></div></div>
+</div>
 </section>
-
 <section class="section tight" id="arquitectura">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div class="kicker">03 — Bajo el capó</div>
-      <h2>Una red Zigbee, un broker</h2>
-      <p class="section-sub">Todo el control vive en la LAN; la nube es opcional y no necesaria.</p>
-    </div>
-    <figure class="figure reveal"><img src="assets/architecture.svg" alt="Arquitectura Zigbee local con válvulas, coordinador, Zigbee2MQTT y MQTT" loading="lazy"><figcaption>Las válvulas hablan Zigbee; Zigbee2MQTT y Mosquitto lo traducen a MQTT local.</figcaption></figure>
-    <div class="arch-points reveal"><div class="card"><h4>Zigbee2MQTT</h4><p>Normaliza los dispositivos y expone estados y comandos por MQTT.</p></div><div class="card"><h4>Mosquitto local</h4><p>El broker corre en la misma red, sin exposición a internet.</p></div><div class="card"><h4>CLI y menú</h4><p>Dos formas de operar: scriptable o interactiva.</p></div></div>
-  </div>
+<div class="wrap">
+<div class="section-head reveal">
+<div class="kicker">03 — Bajo el capó</div>
+<h2>Una red Zigbee, un broker</h2>
+<p class="section-sub">Todo el control vive en la LAN; la nube es opcional y no necesaria.</p>
+</div>
+<figure class="figure reveal"><img alt="Arquitectura Zigbee local con válvulas, coordinador, Zigbee2MQTT y MQTT" loading="lazy" src="assets/architecture.svg"/><figcaption>Las válvulas hablan Zigbee; Zigbee2MQTT y Mosquitto lo traducen a MQTT local.</figcaption></figure>
+<div class="arch-points reveal"><div class="card"><h4>Zigbee2MQTT</h4><p>Normaliza los dispositivos y expone estados y comandos por MQTT.</p></div><div class="card"><h4>Mosquitto local</h4><p>El broker corre en la misma red, sin exposición a internet.</p></div><div class="card"><h4>CLI y menú</h4><p>Dos formas de operar: scriptable o interactiva.</p></div></div>
+</div>
 </section>
-
 <section class="section tight">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div class="kicker">04 — Lo que lo hace distinto</div>
-      <h2>Decisiones de ingeniería</h2>
-      <p class="section-sub">Control local, decisiones visibles.</p>
-    </div>
-    <div class="features reveal"><div class="feature"><div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.5 19a4.5 4.5 0 0 0 .4-9A6 6 0 0 0 6.2 9 4.5 4.5 0 0 0 7 19h10.5Z"/><path d="m9 14 6 6M15 14l-6 6"/></svg></div><h3>Sin nube</h3><p>El control no depende de un servicio externo.</p></div><div class="feature"><div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12h3l2-7 4 14 3-9 2 4h6"/></svg></div><h3>MQTT</h3><p>Topics claros para estado y comando.</p></div><div class="feature"><div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 9 5-9 5-9-5 9-5Z"/><path d="m3 12 9 5 9-5"/><path d="m3 17 9 5 9-5"/></svg></div><h3>Zigbee2MQTT</h3><p>Soporte de dispositivos sin firmware propietario.</p></div><div class="feature"><div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="m7 9 3 3-3 3M13 15h4"/></svg></div><h3>CLI</h3><p>Abrir, cerrar y consultar desde la terminal.</p></div><div class="feature"><div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="14" rx="2"/><path d="M3 8h18M8 21h8M12 17v4"/></svg></div><h3>Menú</h3><p>Operación interactiva para uso diario.</p></div><div class="feature"><div class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.4 7.5 9.5 4.3-1.1 7.5-4.9 7.5-9.5V6L12 3Z"/><path d="m9 12 2 2 4-4"/></svg></div><h3>Configuración saneada</h3><p>Las claves de red reales no se publican; hay un ejemplo.</p></div></div>
-  </div>
+<div class="wrap">
+<div class="section-head reveal">
+<div class="kicker">04 — Lo que lo hace distinto</div>
+<h2>Decisiones de ingeniería</h2>
+<p class="section-sub">Control local, decisiones visibles.</p>
+</div>
+<div class="features reveal"><div class="feature"><div class="icon"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M17.5 19a4.5 4.5 0 0 0 .4-9A6 6 0 0 0 6.2 9 4.5 4.5 0 0 0 7 19h10.5Z"></path><path d="m9 14 6 6M15 14l-6 6"></path></svg></div><h3>Sin nube</h3><p>El control no depende de un servicio externo.</p></div><div class="feature"><div class="icon"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M2 12h3l2-7 4 14 3-9 2 4h6"></path></svg></div><h3>MQTT</h3><p>Topics claros para estado y comando.</p></div><div class="feature"><div class="icon"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="m12 2 9 5-9 5-9-5 9-5Z"></path><path d="m3 12 9 5 9-5"></path><path d="m3 17 9 5 9-5"></path></svg></div><h3>Zigbee2MQTT</h3><p>Soporte de dispositivos sin firmware propietario.</p></div><div class="feature"><div class="icon"><svg aria-hidden="true" viewbox="0 0 24 24"><rect height="16" rx="2" width="18" x="3" y="4"></rect><path d="m7 9 3 3-3 3M13 15h4"></path></svg></div><h3>CLI</h3><p>Abrir, cerrar y consultar desde la terminal.</p></div><div class="feature"><div class="icon"><svg aria-hidden="true" viewbox="0 0 24 24"><rect height="14" rx="2" width="18" x="3" y="3"></rect><path d="M3 8h18M8 21h8M12 17v4"></path></svg></div><h3>Menú</h3><p>Operación interactiva para uso diario.</p></div><div class="feature"><div class="icon"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.4 7.5 9.5 4.3-1.1 7.5-4.9 7.5-9.5V6L12 3Z"></path><path d="m9 12 2 2 4-4"></path></svg></div><h3>Configuración saneada</h3><p>Las claves de red reales no se publican; hay un ejemplo.</p></div></div>
+</div>
 </section>
-
-<section class="section tight"><div class="wrap"><div class="section-head reveal"><div class="kicker">05 — Diagramas</div><h2>El sistema, en dibujos</h2><p class="section-sub">Los diagramas se mantienen en el repositorio y se actualizan con el código.</p></div><div class="gallery"><figure class="figure"><img src="assets/deployment.svg" alt="Válvulas Zigbee — deployment" loading="lazy"><figcaption>Deployment</figcaption></figure><figure class="figure"><img src="assets/zigbee-flow.svg" alt="Válvulas Zigbee — zigbee flow" loading="lazy"><figcaption>Zigbee Flow</figcaption></figure></div></div></section>
-
+<section class="section tight"><div class="wrap"><div class="section-head reveal"><div class="kicker">05 — Diagramas</div><h2>El sistema, en dibujos</h2><p class="section-sub">Los diagramas se mantienen en el repositorio y se actualizan con el código.</p></div><div class="gallery"><figure class="figure"><img alt="Válvulas Zigbee — deployment" loading="lazy" src="assets/deployment.svg"/><figcaption>Deployment</figcaption></figure><figure class="figure"><img alt="Válvulas Zigbee — zigbee flow" loading="lazy" src="assets/zigbee-flow.svg"/><figcaption>Zigbee Flow</figcaption></figure></div></div></section>
 <section class="section tight">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div class="kicker">06 — Stack y arranque</div>
-      <h2>Con qué está construido</h2>
-      <p class="section-sub">Zigbee2MQTT y Mosquitto en Docker, un coordinador Zigbee y Python con paho-mqtt para la CLI. La configuración real se reemplaza por un ejemplo.</p>
-    </div>
-    <div class="stack-grid">
-      <div class="reveal">
-        <div class="chips"><span class="chip">Zigbee2MQTT</span><span class="chip">Mosquitto</span><span class="chip">Docker</span><span class="chip">Python</span><span class="chip">paho-mqtt</span><span class="chip">Sonoff</span></div>
-        <div class="note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.4 7.5 9.5 4.3-1.1 7.5-4.9 7.5-9.5V6L12 3Z"/><path d="m9 12 2 2 4-4"/></svg><span>configuration.yaml real no se versiona: contiene network_key, PAN ID e IEEE. Usar configuration.example.yaml.</span></div>
-      </div>
-      <div class="terminal reveal">
-        <div class="terminal-bar"><i></i><i></i><i></i><span>válvulas · operación</span></div>
-        <pre><span class="p">$</span> docker compose up -d
+<div class="wrap">
+<div class="section-head reveal">
+<div class="kicker">06 — Stack y arranque</div>
+<h2>Con qué está construido</h2>
+<p class="section-sub">Zigbee2MQTT y Mosquitto en Docker, un coordinador Zigbee y Python con paho-mqtt para la CLI. La configuración real se reemplaza por un ejemplo.</p>
+</div>
+<div class="stack-grid">
+<div class="reveal">
+<div class="chips"><span class="chip">Zigbee2MQTT</span><span class="chip">Mosquitto</span><span class="chip">Docker</span><span class="chip">Python</span><span class="chip">paho-mqtt</span><span class="chip">Sonoff</span></div>
+<div class="note"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.4 7.5 9.5 4.3-1.1 7.5-4.9 7.5-9.5V6L12 3Z"></path><path d="m9 12 2 2 4-4"></path></svg><span>configuration.yaml real no se versiona: contiene network_key, PAN ID e IEEE. Usar configuration.example.yaml.</span></div>
+</div>
+<div class="terminal reveal">
+<div class="terminal-bar"><i></i><i></i><i></i><span>válvulas · operación</span></div>
+<pre><span class="p">$</span> docker compose up -d
 <span class="p">$</span> python3 valvulas.py --list
 <span class="p">$</span> python3 valvulas.py --open valvula-1
 <span class="p">$</span> python3 menu.py</pre>
-      </div>
-    </div>
-  </div>
+</div>
+</div>
+</div>
 </section>
-
 <section class="section tight" id="docs">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div class="kicker">07 — Documentación</div>
-      <h2>Todo está escrito</h2>
-      <p class="section-sub">Cada decisión, cada límite y cada comando están documentados en el repositorio. Sin folletos: lo que funciona se muestra, lo que no, también.</p>
-    </div>
-    <div class="docs-grid reveal"><a class="doc-card" href="https://github.com/wanderc137/valvulas-zigbee/blob/main/README.md" target="_blank" rel="noopener"><span class="tag">README</span><h3>La guía completa</h3><p>Hardware, Docker, Zigbee2MQTT, MQTT y operación.</p><span class="arrow">Abrir documento <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><a class="doc-card" href="https://github.com/wanderc137/valvulas-zigbee/blob/main/docs/datasheet.md" target="_blank" rel="noopener"><span class="tag">DATASHEET</span><h3>Manual de operación</h3><p>Dispositivos, topics, CLI, menú y diagnóstico.</p><span class="arrow">Abrir documento <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><a class="doc-card" href="https://github.com/wanderc137/valvulas-zigbee/blob/main/docs/developer.md" target="_blank" rel="noopener"><span class="tag">DEVELOPER</span><h3>Guía de código</h3><p>CLI, MQTT, configuración y extensión.</p><span class="arrow">Abrir documento <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a><a class="doc-card" href="https://github.com/wanderc137/valvulas-zigbee/blob/main/docs/REFERENCES.md" target="_blank" rel="noopener"><span class="tag">REFERENCES</span><h3>Referencias</h3><p>Zigbee2MQTT, Mosquitto, SONOFF y MQTT.</p><span class="arrow">Abrir documento <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div>
-  </div>
+<div class="wrap">
+<div class="section-head reveal">
+<div class="kicker">07 — Documentación</div>
+<h2>Todo está escrito</h2>
+<p class="section-sub">Cada decisión, cada límite y cada comando están documentados en el repositorio. Sin folletos: lo que funciona se muestra, lo que no, también.</p>
+</div>
+<div class="docs-grid reveal"><a class="doc-card" href="https://github.com/wanderc137/valvulas-zigbee/blob/main/README.md" rel="noopener" target="_blank"><span class="tag">README</span><h3>La guía completa</h3><p>Hardware, Docker, Zigbee2MQTT, MQTT y operación.</p><span class="arrow">Abrir documento <svg viewbox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a><a class="doc-card" href="https://github.com/wanderc137/valvulas-zigbee/blob/main/docs/datasheet.md" rel="noopener" target="_blank"><span class="tag">DATASHEET</span><h3>Manual de operación</h3><p>Dispositivos, topics, CLI, menú y diagnóstico.</p><span class="arrow">Abrir documento <svg viewbox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a><a class="doc-card" href="https://github.com/wanderc137/valvulas-zigbee/blob/main/docs/developer.md" rel="noopener" target="_blank"><span class="tag">DEVELOPER</span><h3>Guía de código</h3><p>CLI, MQTT, configuración y extensión.</p><span class="arrow">Abrir documento <svg viewbox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a><a class="doc-card" href="https://github.com/wanderc137/valvulas-zigbee/blob/main/docs/REFERENCES.md" rel="noopener" target="_blank"><span class="tag">REFERENCES</span><h3>Referencias</h3><p>Zigbee2MQTT, Mosquitto, SONOFF y MQTT.</p><span class="arrow">Abrir documento <svg viewbox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a></div>
+</div>
 </section>
-
-<section class="cta">
-  <div class="wrap">
-    <div class="cta-card reveal">
-      <div class="kicker" style="justify-content:center">Portfolio · 21 proyectos</div>
-      <h2>¿Te animás?</h2>
-      <p>Usá esto como base y referencia para controlar riego o válvulas Zigbee de forma local, sin nube. Este proyecto es la prueba de que se puede hacer con componentes reales.</p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="https://wanderc137.github.io/" target="_blank" rel="noopener">Ver todos los proyectos <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        <a class="btn btn-ghost" href="https://github.com/wanderc137/valvulas-zigbee" target="_blank" rel="noopener">Explorar el código</a>
-      </div>
-    </div>
-  </div>
+<section class="section tight"><div class="wrap"><div class="section-head"><div class="kicker">Tropiezos</div><h2>Los tropiezos, documentados</h2><p class="section-sub">Lo que no funcionó en las primeras versiones, con la corrección aplicada.</p></div><div class="fail-grid"><div class="fail"><div class="v">v1 · primer comando</div><h3>El converter usa ON/OFF, no OPEN/CLOSE</h3><p>Los primeros envíos no hacían nada porque la válvula SWV expone state ON/OFF. Se validó STATE_OPTIONS y se tradujo open/close a ON/OFF en el CLI.</p></div><div class="fail"><div class="v">v1 · válvulas dormidas</div><h3>Comandos intermitentes por el ciclo de sueño</h3><p>El set ZCL caduca a los 10 s y la válvula duerme; por eso el resultado era «a veces sí». Se hace un get para despertarla, se descarta el payload cacheado y se espera el state exacto, con lo que la confirmación pasó a 2–8 s.</p></div><div class="fail"><div class="v">v1 · emparejamiento</div><h3>permit_join necesitaba el campo time</h3><p>En Zigbee2MQTT 2.x la ventana no abría o quedaba abierta para siempre si no se enviaba time. Se añadió el campo y se documentó que Ctrl+C durante la espera deja la ventana activa.</p></div><div class="fail"><div class="v">v1 · entrevista Zigbee</div><h3>El ZBMINIL2 no emparejaba a distancia</h3><p>El interview fallaba con «can not get node descriptor» lejos del dongle. Hubo que emparejar el interruptor junto al coordinador y luego reubicarlo.</p></div></div></div></section><section class="section tight"><div class="wrap"><div class="section-head"><div class="kicker">Evaluación</div><h2>Cómo se mide este proyecto</h2><p class="section-sub">Seis criterios fijos, con la evidencia que respalda cada nota.</p></div><div class="rating-head"><div class="rating-avg">4.3<small>/5</small></div><p>Sirve a quien quiere controlar riego Zigbee sin nube y con evidencia de latencias y consumo en un servidor pequeño. La limitación que más pesa es la ausencia de autenticación y de planificador propio, aceptable en una red doméstica de confianza pero no en una instalación expuesta.</p></div><div class="rating"><div class="rating-row"><div class="rating-name">Madurez</div><div class="rating-bar"><span style="width:80%"></span></div><div class="rating-score">4/5</div><div class="rating-note">Dos válvulas y un interruptor operados con confirmación real; auditoría ciclo 1 con 5 incidencias corregidas y ciclo 2 aprobado.</div></div><div class="rating-row"><div class="rating-name">Reproducibilidad</div><div class="rating-bar"><span style="width:80%"></span></div><div class="rating-score">4/5</div><div class="rating-note">Z2MQTT 2.13.0, Mosquitto y paho-mqtt 2.1.0 fijados; docker-compose de 17 líneas, aunque depende de converter y dongle concretos.</div></div><div class="rating-row"><div class="rating-name">Documentación</div><div class="rating-bar"><span style="width:100%"></span></div><div class="rating-score">5/5</div><div class="rating-note">README de 933 líneas, bitácora P-01 a P-11, guía de migración a Raspberry y dos informes de auditoría.</div></div><div class="rating-row"><div class="rating-name">Honestidad de límites</div><div class="rating-bar"><span style="width:100%"></span></div><div class="rating-score">5/5</div><div class="rating-note">Declara MQTT sin autenticación, confirmación por timeout, 2–5 min de check-in tras reiniciar el coordinador y ausencia de tests.</div></div><div class="rating-row"><div class="rating-name">Valor demostrativo</div><div class="rating-bar"><span style="width:80%"></span></div><div class="rating-score">4/5</div><div class="rating-note">Resuelve el caso difícil de end devices dormidos con get + set + espera de state y lo mide en hardware.</div></div><div class="rating-row"><div class="rating-name">Facilidad de despliegue</div><div class="rating-bar"><span style="width:80%"></span></div><div class="rating-score">4/5</div><div class="rating-note">Docker Compose, dongle por by-id y un único emparejamiento manual; el resto queda en CLI y menú.</div></div></div></div></section><section class="section tight"><div class="wrap"><div class="section-head"><div class="kicker">Preguntas</div><h2>Lo que suelen preguntar</h2></div><div class="faq"><details><summary>¿Qué controla?</summary><p>Dos válvulas SONOFF SWV-NH y un interruptor ZBMINIL2 a través de Zigbee2MQTT y Mosquitto, con una CLI y un menú en Python.</p></details><details><summary>¿Qué no hace?</summary><p>No programa riegos, no gestiona varios hosts ni autentica MQTT, y no cifra el tráfico local. La confirmación puede vencer por timeout aunque la válvula haya actuado.</p></details><details><summary>¿Cómo se despliega?</summary><p>Se levantan Zigbee2MQTT y Mosquitto con Docker Compose, se apunta el dongle por /dev/serial/by-id y se emparejan los dispositivos. Luego se instala paho-mqtt y se usa valvulas.py o menu_valvulas.py.</p></details><details><summary>¿Qué se puede reutilizar?</summary><p>El patrón get + descartar caché + set + esperar state para dispositivos dormidos, la validación de converters y el menú con conexión persistente.</p></details></div></div></section><section class="cta">
+<div class="wrap">
+<div class="cta-card reveal">
+<div class="kicker" style="justify-content:center">Portfolio · 21 proyectos</div>
+<h2>¿Te animás?</h2>
+<p>Usá esto como base y referencia para controlar riego o válvulas Zigbee de forma local, sin nube. Este proyecto es la prueba de que se puede hacer con componentes reales.</p>
+<div class="hero-actions">
+<a class="btn btn-primary" href="https://wanderc137.github.io/" rel="noopener" target="_blank">Ver todos los proyectos <svg viewbox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+<a class="btn btn-ghost" href="https://github.com/wanderc137/valvulas-zigbee" rel="noopener" target="_blank">Explorar el código</a>
+</div>
+</div>
+</div>
 </section>
 </main>
-
 <footer>
-  <div class="wrap">
-    <div class="foot-grid">
-      <div>
-        <div class="foot-brand"><span class="brand-mark"><svg viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="3"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/><circle cx="12" cy="12" r="2.5"/></svg></span>Válvulas Zigbee</div>
-        <p class="foot-p">Agua controlada, datos en casa.</p>
-      </div>
-      <div>
-        <h4>Este proyecto</h4>
-        <div class="foot-links">
-          <a href="https://github.com/wanderc137/valvulas-zigbee" target="_blank" rel="noopener">Repositorio en GitHub</a>
-          <a href="https://github.com/wanderc137/valvulas-zigbee/blob/main/README.md" target="_blank" rel="noopener">README técnico</a>
-          <a href="https://github.com/wanderc137/valvulas-zigbee/blob/main/docs/datasheet.md" target="_blank" rel="noopener">Datasheet</a>
-          <a href="https://github.com/wanderc137/valvulas-zigbee/blob/main/docs/developer.md" target="_blank" rel="noopener">Guía de desarrollador</a>
-          <a href="https://github.com/wanderc137/valvulas-zigbee/blob/main/docs/REFERENCES.md" target="_blank" rel="noopener">Referencias</a>
-        </div>
-      </div>
-      <div>
-        <h4>Otros proyectos</h4>
-        <div class="foot-links"><a href="https://wanderc137.github.io/proxy-openrouter-ia-chinas/">OpenRouter Proxy</a><a href="https://wanderc137.github.io/netEspNow-v1.4/">netEspNow</a><a href="https://wanderc137.github.io/nb2700-telemetria/">NB2700 Telemetría</a><a href="https://wanderc137.github.io/mega-free-chat/">Mega Free Chat</a><a href="https://wanderc137.github.io/CubeCell-LoRaWAN-Node-v1.3/">CubeCell LoRaWAN Bridge v1.3</a><a href="https://wanderc137.github.io/CashDroController/">CashDro Controller</a><a href="https://wanderc137.github.io/BusAccel-8266-v4/">BusAccel</a><a href="https://wanderc137.github.io/SpeechToTextAuxPy/">SpeechToText Aux</a><a href="https://wanderc137.github.io/teleAsistenciaV1.3/">Alerta Mayor</a><a href="https://wanderc137.github.io/TotemAutoatencion/">Totem Autoatención</a><a href="https://wanderc137.github.io/turnero/">Turnero</a><a href="https://wanderc137.github.io/mesacerca/">MesaCerca</a><a href="https://wanderc137.github.io/permaweb-app/">Permaweb App</a><a href="https://wanderc137.github.io/AnalizadorRostroUNOQ/">AnalizadorRostro v1</a></div>
-      </div>
-    </div>
-    <div class="foot-bottom">
-      <span><a href="https://wanderc137.github.io/">Portfolio</a> · © 2026 wanderc137 · Licencia MIT</span>
-      <span>Diseñado y construido por wanderc137</span>
-    </div>
-  </div>
+<div class="wrap">
+<div class="foot-grid">
+<div>
+<div class="foot-brand"><span class="brand-mark"><svg viewbox="0 0 24 24"><rect height="14" rx="3" width="14" x="5" y="5"></rect><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"></path><circle cx="12" cy="12" r="2.5"></circle></svg></span>Válvulas Zigbee</div>
+<p class="foot-p">Agua controlada, datos en casa.</p>
+</div>
+<div>
+<h4>Este proyecto</h4>
+<div class="foot-links">
+<a href="https://github.com/wanderc137/valvulas-zigbee" rel="noopener" target="_blank">Repositorio en GitHub</a>
+<a href="https://github.com/wanderc137/valvulas-zigbee/blob/main/README.md" rel="noopener" target="_blank">README técnico</a>
+<a href="https://github.com/wanderc137/valvulas-zigbee/blob/main/docs/datasheet.md" rel="noopener" target="_blank">Datasheet</a>
+<a href="https://github.com/wanderc137/valvulas-zigbee/blob/main/docs/developer.md" rel="noopener" target="_blank">Guía de desarrollador</a>
+<a href="https://github.com/wanderc137/valvulas-zigbee/blob/main/docs/REFERENCES.md" rel="noopener" target="_blank">Referencias</a>
+</div>
+</div>
+<div>
+<h4>Otros proyectos</h4>
+<div class="foot-links"><a href="https://wanderc137.github.io/proxy-openrouter-ia-chinas/">OpenRouter Proxy</a><a href="https://wanderc137.github.io/netEspNow-v1.4/">netEspNow</a><a href="https://wanderc137.github.io/nb2700-telemetria/">NB2700 Telemetría</a><a href="https://wanderc137.github.io/mega-free-chat/">Mega Free Chat</a><a href="https://wanderc137.github.io/CubeCell-LoRaWAN-Node-v1.3/">CubeCell LoRaWAN Bridge v1.3</a><a href="https://wanderc137.github.io/CashDroController/">CashDro Controller</a><a href="https://wanderc137.github.io/BusAccel-8266-v4/">BusAccel</a><a href="https://wanderc137.github.io/SpeechToTextAuxPy/">SpeechToText Aux</a><a href="https://wanderc137.github.io/teleAsistenciaV1.3/">Alerta Mayor</a><a href="https://wanderc137.github.io/TotemAutoatencion/">Totem Autoatención</a><a href="https://wanderc137.github.io/turnero/">Turnero</a><a href="https://wanderc137.github.io/mesacerca/">MesaCerca</a><a href="https://wanderc137.github.io/permaweb-app/">Permaweb App</a><a href="https://wanderc137.github.io/AnalizadorRostroUNOQ/">AnalizadorRostro v1</a></div>
+</div>
+</div>
+<div class="foot-bottom">
+<span><a href="https://wanderc137.github.io/">Portfolio</a> · © 2026 wanderc137 · Licencia MIT</span>
+<span>Diseñado y construido por wanderc137</span>
+</div>
+</div>
 </footer>
-
 <script>
 (function(){
   var io = new IntersectionObserver(function(entries){
@@ -445,8 +465,7 @@ footer{position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.08);pa
   document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
 })();
 </script>
-
 <script>window.PORTFOLIO_COMMUNITY = {"account": "wanderc137", "repo": "valvulas-zigbee", "coinNamespace": "wanderc137-valvulas-zigbee-coins-v1", "faqs": [{"q": "¿Qué controla?", "a": "Dos válvulas SONOFF SWV-NH y un interruptor ZBMINIL2 vía Zigbee2MQTT."}, {"q": "¿Necesita nube?", "a": "No. Zigbee2MQTT y Mosquitto corren localmente, con Docker."}, {"q": "¿Cómo se opera?", "a": "Con la CLI <code>valvulas.py</code> o el menú; los comandos MQTT están documentados."}, {"q": "¿Dónde está la configuración real?", "a": "En <code>configuration.yaml</code>, excluido; el repo publica <code>configuration.example.yaml</code>."}, {"q": "¿Cuáles son los límites?", "a": "Depende del coordinador Zigbee, la cobertura y la compatibilidad de los dispositivos."}]};</script>
-<script src="assets/community.js?v=5" defer></script>
+<script defer="" src="assets/community.js?v=5"></script>
 </body>
 </html>

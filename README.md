@@ -923,6 +923,57 @@ Lista ampliada: [docs/REFERENCES.md](docs/REFERENCES.md).
 
 ---
 
+## Ficha de evaluación
+
+**Madurez global: 4.3/5**
+
+| Criterio | Nota | Evidencia |
+|---|---:|---|
+| Madurez | 4/5 | Dos válvulas y un interruptor operados con confirmación real; auditoría ciclo 1 con 5 incidencias corregidas y ciclo 2 aprobado. |
+| Reproducibilidad | 4/5 | Z2MQTT 2.13.0, Mosquitto y paho-mqtt 2.1.0 fijados; docker-compose de 17 líneas, aunque depende de converter y dongle concretos. |
+| Documentación | 5/5 | README de 933 líneas, bitácora P-01 a P-11, guía de migración a Raspberry y dos informes de auditoría. |
+| Honestidad de límites | 5/5 | Declara MQTT sin autenticación, confirmación por timeout, 2–5 min de check-in tras reiniciar el coordinador y ausencia de tests. |
+| Valor demostrativo | 4/5 | Resuelve el caso difícil de end devices dormidos con get + set + espera de state y lo mide en hardware. |
+| Facilidad de despliegue | 4/5 | Docker Compose, dongle por by-id y un único emparejamiento manual; el resto queda en CLI y menú. |
+
+Sirve a quien quiere controlar riego Zigbee sin nube y con evidencia de latencias y consumo en un servidor pequeño. La limitación que más pesa es la ausencia de autenticación y de planificador propio, aceptable en una red doméstica de confianza pero no en una instalación expuesta.
+
+## Lo que no funcionó
+
+### v1 · primer comando — El converter usa ON/OFF, no OPEN/CLOSE
+
+Los primeros envíos no hacían nada porque la válvula SWV expone state ON/OFF. Se validó STATE_OPTIONS y se tradujo open/close a ON/OFF en el CLI.
+
+### v1 · válvulas dormidas — Comandos intermitentes por el ciclo de sueño
+
+El set ZCL caduca a los 10 s y la válvula duerme; por eso el resultado era «a veces sí». Se hace un get para despertarla, se descarta el payload cacheado y se espera el state exacto, con lo que la confirmación pasó a 2–8 s.
+
+### v1 · emparejamiento — permit_join necesitaba el campo time
+
+En Zigbee2MQTT 2.x la ventana no abría o quedaba abierta para siempre si no se enviaba time. Se añadió el campo y se documentó que Ctrl+C durante la espera deja la ventana activa.
+
+### v1 · entrevista Zigbee — El ZBMINIL2 no emparejaba a distancia
+
+El interview fallaba con «can not get node descriptor» lejos del dongle. Hubo que emparejar el interruptor junto al coordinador y luego reubicarlo.
+
+## Preguntas típicas
+
+**¿Qué controla?**
+
+Dos válvulas SONOFF SWV-NH y un interruptor ZBMINIL2 a través de Zigbee2MQTT y Mosquitto, con una CLI y un menú en Python.
+
+**¿Qué no hace?**
+
+No programa riegos, no gestiona varios hosts ni autentica MQTT, y no cifra el tráfico local. La confirmación puede vencer por timeout aunque la válvula haya actuado.
+
+**¿Cómo se despliega?**
+
+Se levantan Zigbee2MQTT y Mosquitto con Docker Compose, se apunta el dongle por /dev/serial/by-id y se emparejan los dispositivos. Luego se instala paho-mqtt y se usa valvulas.py o menu_valvulas.py.
+
+**¿Qué se puede reutilizar?**
+
+El patrón get + descartar caché + set + esperar state para dispositivos dormidos, la validación de converters y el menú con conexión persistente.
+
 ## Licencia
 
 MIT — ver [LICENSE](LICENSE). Copyright (c) 2026 wanderc137.
