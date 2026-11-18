@@ -291,7 +291,8 @@ footer{position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.08);pa
 @media(max-width:760px){.concept-grid,.fail-grid{grid-template-columns:1fr}.concept-side{border-left:0;padding-left:0}}
 
 </style>
-<link href="assets/community.css?v=5" rel="stylesheet"/></head>
+<link href="assets/community.css?v=5" rel="stylesheet"/><link href="rec/player.css?v=1" rel="stylesheet"/>
+</head>
 <body style="--accent:#7CFF6B;--accent2:#22D3EE">
 <div class="grid-overlay"></div>
 <div class="glow one"></div>
@@ -306,6 +307,7 @@ footer{position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.08);pa
 <a href="#problema">Visión</a>
 <a href="#como">Cómo funciona</a>
 <a href="#arquitectura">Arquitectura</a>
+<a href="#video">Video</a>
 <a href="#docs">Documentación</a>
 <a href="#comunidad">Comunidad</a>
 <a class="btn btn-ghost" href="https://github.com/wanderc137/valvulas-zigbee" rel="noopener" style="padding:9px 15px" target="_blank">GitHub</a>
@@ -356,6 +358,45 @@ footer{position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.08);pa
 <div class="timeline reveal"><div class="step"><div class="step-num">01</div><div class="step-body"><h3>Emparejar</h3><p>Las válvulas y el interruptor se unen al coordinador Zigbee local.</p></div></div><div class="step"><div class="step-num">02</div><div class="step-body"><h3>Publicar</h3><p>Zigbee2MQTT traduce los estados a topics MQTT legibles.</p></div></div><div class="step"><div class="step-num">03</div><div class="step-body"><h3>Decidir</h3><p>La CLI o el menú publican la orden de abrir o cerrar.</p></div></div><div class="step"><div class="step-num">04</div><div class="step-body"><h3>Confirmar</h3><p>El estado real vuelve por MQTT y se muestra en la consola.</p></div></div></div>
 </div>
 </section>
+
+<section class="section tight rec-section" id="video" style="--accent:#2E7DFF;--accent2:#14F195">
+<div class="wrap">
+<div class="rec-kicker">REC · VIDEO · 2:50</div>
+<h2 class="rec-h2">Válvulas Zigbee · abrir agua sin nube</h2>
+<p class="rec-lead">Recorrido por el control local de dos válvulas de riego y un interruptor Zigbee: despliegue de Zigbee2MQTT, cliente MQTT, lectura de estado, despertado de end devices a batería y confirmación real antes de declarar éxito.</p>
+<div class="rec-banner">
+<span class="rec-banner-icon">📋</span>
+<strong>Puedes copiar y pegar los comandos del video desde el video !!!</strong>
+<span>Pausá, seleccioná el texto de la terminal y copiá.</span>
+</div>
+<div class="rec-shell">
+<div class="rec-bar"><i></i><i></i><i></i><span class="rec-title">Válvulas Zigbee · abrir agua sin nube · asciinema</span><span class="rec-rec"><b></b>REC</span></div>
+<div class="rec-screen-wrap">
+<div class="rec-screen" id="rec-screen"></div>
+<div class="rec-poster" id="rec-poster">
+<div class="rec-kicker">ASCIINEMA · 2:50</div>
+<h3>Válvulas Zigbee · abrir agua sin nube</h3>
+<p>Recorrido por el control local de dos válvulas de riego y un interruptor Zigbee: despliegue de Zigbee2MQTT, cliente MQTT, lectura de estado, despertado de end devices a batería y confirmación real antes de declarar éxito.</p>
+<div class="rec-poster-meta">valvulas-zigbee · código real</div>
+<button class="rec-btn rec-primary" id="rec-start" type="button">▶ Reproducir</button>
+</div>
+</div>
+<div class="rec-controls">
+<button class="rec-btn rec-primary" id="rec-play" type="button">▶ Reproducir</button>
+<button class="rec-btn" id="rec-restart" type="button">↺ Reiniciar</button>
+<input class="rec-progress" id="rec-range" type="range" min="0" max="1000" value="0" aria-label="Progreso"/>
+<span class="rec-time" id="rec-time">0:00 / 2:50</span>
+<select class="rec-speed" id="rec-speed" aria-label="Velocidad"><option value="1">1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option></select>
+<button class="rec-btn" id="rec-full" type="button" title="Pantalla completa">⛶</button>
+<button class="rec-btn" id="rec-copy" type="button">⧉ Copiar comandos</button>
+<a class="rec-download" href="rec/valvulas-zigbee.cast" download>descargar .cast</a>
+</div>
+</div>
+<p class="rec-note">Video generado a partir del código real del repositorio. Los fragmentos corresponden a los archivos y líneas indicados. No se muestra la configuración interna de Zigbee2MQTT, que contiene la clave de red, ni credenciales MQTT.</p>
+<div class="rec-chapters"><span class="rec-chip"><b>0:06</b> EL PROBLEMA</span><span class="rec-chip"><b>0:22</b> ARQUITECTURA</span><span class="rec-chip"><b>0:36</b> CONFIGURACIÓN</span><span class="rec-chip"><b>0:50</b> EL CLIENTE</span><span class="rec-chip"><b>1:03</b> EL PROTOCOLO</span><span class="rec-chip"><b>1:17</b> LEER ESTADO</span><span class="rec-chip"><b>1:32</b> DESPERTAR</span><span class="rec-chip"><b>1:47</b> CONFIRMACIÓN</span><span class="rec-chip"><b>2:03</b> MEDICIONES</span><span class="rec-chip"><b>2:14</b> EL MENÚ</span><span class="rec-chip"><b>2:28</b> CÓMO EJECUTARLO</span></div>
+</div>
+</section>
+
 <section class="section tight" id="arquitectura">
 <div class="wrap">
 <div class="section-head reveal">
@@ -467,5 +508,7 @@ footer{position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.08);pa
 </script>
 <script>window.PORTFOLIO_COMMUNITY = {"account": "wanderc137", "repo": "valvulas-zigbee", "coinNamespace": "wanderc137-valvulas-zigbee-coins-v1", "faqs": [{"q": "¿Qué controla?", "a": "Dos válvulas SONOFF SWV-NH y un interruptor ZBMINIL2 vía Zigbee2MQTT."}, {"q": "¿Necesita nube?", "a": "No. Zigbee2MQTT y Mosquitto corren localmente, con Docker."}, {"q": "¿Cómo se opera?", "a": "Con la CLI <code>valvulas.py</code> o el menú; los comandos MQTT están documentados."}, {"q": "¿Dónde está la configuración real?", "a": "En <code>configuration.yaml</code>, excluido; el repo publica <code>configuration.example.yaml</code>."}, {"q": "¿Cuáles son los límites?", "a": "Depende del coordinador Zigbee, la cobertura y la compatibilidad de los dispositivos."}]};</script>
 <script defer="" src="assets/community.js?v=6"></script>
+<script defer src="rec/valvulas-zigbee.cast.js?v=1"></script>
+<script defer src="rec/player.js?v=1"></script>
 </body>
 </html>
